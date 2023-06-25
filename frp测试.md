@@ -45,8 +45,8 @@ frps.ini
   dashboard_user = admin
   dashboard_pwd = admin
 
-	# 代理 访问的端口白名单
-	allow_ports = 2000-3000,3001,3003,4000-50000
+  # 代理 访问的端口白名单
+  allow_ports = 2000-3000,3001,3003,4000-50000
 
 ```
 
@@ -61,8 +61,8 @@ frpc.ini
   includes = /etc/confd/*.ini     # 配置分离，加载该目录下.ini 配置文件
 
 	# 客户端热重启的配置
-	admin_addr = 127.0.0.1
-	admin_port = 7400
+  admin_addr = 127.0.0.1
+  admin_port = 7400
 
 	# 要代理的服务配置
   [ssh]        # 配置ssh 代理
