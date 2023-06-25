@@ -108,7 +108,7 @@ udp.ini
 
  - 2.2.4 配置http 代理
 ```
-  配置 mstc 远程桌面代理，添加 mstc.ini 配置文件，服务器代理端口 13389,
+  配置 http代理 , custom_domains 和 subdomain 必须要配置其中一个，两者可以同时生效。，
 test_web.ini
   [test_web]     # 配置http代理的名称
   type = http     # 代理协议
@@ -116,13 +116,58 @@ test_web.ini
   local_port = 8000   # 本地http 端口号
   subdomain = arp     # 如果有，http 代理的子域名，需服务端配置 subdomain_host，与custom_domains 配置二选一
   custom_domains = www.yourdomain.com  # 如果有，在自由域名的情况下，http 代理访问的域名，需添加域名的DNS解析记录到代理服务器，与subdomain配置 二选一，
+	http_user = abc    # 访问配置 http 代理服务的用户名
+	http_pwd = abc      # 访问配置 http 代理服务的密码
+
 
   热加载配置：
   frpc reload -c ./frpc.ini
 
 ```
+
+ - 2.2.5 配置http url 路由到不同的代理
+```
+  配置两个web 代理服务 web01/web02,  url后缀为  /news,/about 代理到web02的 web.yourdomain.com:81， 
+web.ini
+	[web01]
+	type = http    # 代理协议 
+	local_port = 80    # 本地http 端口号
+	custom_domains = web.yourdomain.com   # http代理的域名，在没有域名的情况下，可以配置 代理服务器域名的子域名
+	locations = /     # url 路由后缀
 	
-  - 2.2.5 配置文件访问 代理
+	[web02]
+	type = http   # 代理协议 
+	local_port = 81    # 本地http 端口号
+	custom_domains = web.yourdomain.com   # http代理的域名，在没有域名的情况下，可以配置 代理服务器域名的子域名
+	locations = /news,/about     # url 路由后缀
+
+  热加载配置：
+  frpc reload -c ./frpc.ini
+
+```
+
+ - 2.2.6 配置本地http 服务启用https 代理
+```
+  配置两个web 代理服务 web01/web02,  url后缀为  /news,/about 代理到web02的 web.yourdomain.com:81， 
+web.ini
+	[web01]
+	type = http    # 代理协议 
+	custom_domains = web.yourdomain.com   # http代理的域名，在没有域名的情况下，可以配置 代理服务器域名的子域名
+	plugin = https2http   # https2http 插件
+	plugin_local_addr = 127.0.0.1:80  # 本地http 服务
+	
+	# HTTPS 证书相关的配置
+	plugin_crt_path = ./server.crt
+	plugin_key_path = ./server.key
+	plugin_host_header_rewrite = 127.0.0.1
+	plugin_header_X-From-Where = frp
+
+  热加载配置：
+  frpc reload -c ./frpc.ini
+
+```
+ 
+  - 2.2.7 配置文件访问 代理
 ```
   配置 dns查询代理，添加 dns.ini 配置文件，服务器代理端口 6000,
 udp.ini
@@ -140,6 +185,7 @@ udp.ini
 	plugin_strip_prefix = static  # 访问url 的后缀名称，如 http://x.x.x.x:6001/static/
 	plugin_http_user = abc     # 访问文件代理服务的用户名
 	plugin_http_passwd = abc    # 访问文件代理服务的用户名
+	bandwidth_limit = 1MB     # 客户端代理限速 1m
 
   热加载配置：
   frpc reload -c ./frpc.ini
