@@ -55,23 +55,23 @@ frps.ini
 ```
 frpc.ini
   [common]
-	# 连接frps 服务器的基础配置
+  # 连接frps 服务器的基础配置
   server_addr = www.metelcloud.com    # 要连接服务端的IP地址或域名
   server_port = 7000          # 要连接服务端的tcp 端口
   includes = /etc/confd/*.ini     # 配置分离，加载该目录下.ini 配置文件
-
-	# 客户端热重启的配置
+  
+  # 客户端热重启的配置
   admin_addr = 127.0.0.1
   admin_port = 7400
-
-	# 要代理的服务配置
+  
+  # 要代理的服务配置
   [ssh]        # 配置ssh 代理
   type = tcp      # 协议tcp协议
   local_ip = 127.0.0.1     # 本地IP地址
   local_port = 22         # 要代理的ssh 的端口
   remote_port = 6000     # 服务端代理访问的TCP 端口号，服务端一个端口号只能代理一个TCP/UDP服务，服务端防火墙要放开该端口号
-
-	热加载配置：
+  
+  热加载配置：
   frpc reload -c ./frpc.ini
   查看代理状态
   frpc status -c ./frpc.ini
@@ -87,7 +87,7 @@ mstc.ini
   local_ip = 127.0.0.1     # 本地IP地址
   local_port = 3389         # 要代理的ssh 的端口
   remote_port = 13389     # 服务端代理访问的TCP 端口号，服务端一个端口号只能代理一个TCP/UDP服务，服务端防火墙要放开该端口号
-
+  
   热加载配置：
   frpc reload -c ./frpc.ini
 ```
@@ -101,7 +101,7 @@ udp.ini
   local_ip = 127.0.0.1     # 本地IP地址
   local_port = 53        # 要代理的ssh 的端口
   remote_port = 6000     # 服务端代理访问的TCP 端口号，服务端一个端口号只能代理一个TCP/UDP服务，服务端防火墙要放开该端口号
-
+  
   热加载配置：
   frpc reload -c ./frpc.ini
 ```
@@ -116,10 +116,10 @@ test_web.ini
   local_port = 8000   # 本地http 端口号
   subdomain = arp     # 如果有，http 代理的子域名，需服务端配置 subdomain_host，与custom_domains 配置二选一
   custom_domains = www.yourdomain.com  # 如果有，在自由域名的情况下，http 代理访问的域名，需添加域名的DNS解析记录到代理服务器，与subdomain配置 二选一，
-	http_user = abc    # 访问配置 http 代理服务的用户名
-	http_pwd = abc      # 访问配置 http 代理服务的密码
-
-
+  http_user = abc    # 访问配置 http 代理服务的用户名
+  http_pwd = abc      # 访问配置 http 代理服务的密码
+  
+  
   热加载配置：
   frpc reload -c ./frpc.ini
 
@@ -129,18 +129,18 @@ test_web.ini
 ```
   配置两个web 代理服务 web01/web02,  url后缀为  /news,/about 代理到web02的 web.yourdomain.com:81， 
 web.ini
-	[web01]
-	type = http    # 代理协议 
-	local_port = 80    # 本地http 端口号
-	custom_domains = web.yourdomain.com   # http代理的域名，在没有域名的情况下，可以配置 代理服务器域名的子域名
-	locations = /     # url 路由后缀
-	
-	[web02]
-	type = http   # 代理协议 
-	local_port = 81    # 本地http 端口号
-	custom_domains = web.yourdomain.com   # http代理的域名，在没有域名的情况下，可以配置 代理服务器域名的子域名
-	locations = /news,/about     # url 路由后缀
-
+  [web01]
+  type = http    # 代理协议 
+  local_port = 80    # 本地http 端口号
+  custom_domains = web.yourdomain.com   # http代理的域名，在没有域名的情况下，可以配置 代理服务器域名的子域名
+  locations = /     # url 路由后缀
+  
+  [web02]
+  type = http   # 代理协议 
+  local_port = 81    # 本地http 端口号
+  custom_domains = web.yourdomain.com   # http代理的域名，在没有域名的情况下，可以配置 代理服务器域名的子域名
+  locations = /news,/about     # url 路由后缀
+  
   热加载配置：
   frpc reload -c ./frpc.ini
 
@@ -150,18 +150,18 @@ web.ini
 ```
   配置两个web 代理服务 web01/web02,  url后缀为  /news,/about 代理到web02的 web.yourdomain.com:81， 
 web.ini
-	[web01]
-	type = http    # 代理协议 
-	custom_domains = web.yourdomain.com   # http代理的域名，在没有域名的情况下，可以配置 代理服务器域名的子域名
-	plugin = https2http   # https2http 插件
-	plugin_local_addr = 127.0.0.1:80  # 本地http 服务
-	
-	# HTTPS 证书相关的配置
-	plugin_crt_path = ./server.crt
-	plugin_key_path = ./server.key
-	plugin_host_header_rewrite = 127.0.0.1
-	plugin_header_X-From-Where = frp
-
+  [web01]
+  type = http    # 代理协议 
+  custom_domains = web.yourdomain.com   # http代理的域名，在没有域名的情况下，可以配置 代理服务器域名的子域名
+  plugin = https2http   # https2http 插件
+  plugin_local_addr = 127.0.0.1:80  # 本地http 服务
+  
+  # HTTPS 证书相关的配置
+  plugin_crt_path = ./server.crt
+  plugin_key_path = ./server.key
+  plugin_host_header_rewrite = 127.0.0.1
+  plugin_header_X-From-Where = frp
+  
   热加载配置：
   frpc reload -c ./frpc.ini
 
@@ -176,22 +176,22 @@ udp.ini
   local_ip = 127.0.0.1     # 本地IP地址
   local_port = 53        # 要代理的ssh 的端口
   remote_port = 6000     # 服务端代理访问的TCP 端口号，服务端一个端口号只能代理一个TCP/UDP服务，服务端防火墙要放开该端口号
-
-	[test_static_file]  # 配置文件代理名称
-	type = tcp     # 协议tcp协议
-	remote_port = 6001    # 服务端代理访问的TCP 端口号
-	plugin = static_file    # 文件代理启用的插件，
-	plugin_local_path = /tmp/file   # 要对外暴露的文件目录
-	plugin_strip_prefix = static  # 访问url 的后缀名称，如 http://x.x.x.x:6001/static/
-	plugin_http_user = abc     # 访问文件代理服务的用户名
-	plugin_http_passwd = abc    # 访问文件代理服务的用户名
-	bandwidth_limit = 1MB     # 客户端代理限速 1m
-
+  
+  [test_static_file]  # 配置文件代理名称
+  type = tcp     # 协议tcp协议
+  remote_port = 6001    # 服务端代理访问的TCP 端口号
+  plugin = static_file    # 文件代理启用的插件，
+  plugin_local_path = /tmp/file   # 要对外暴露的文件目录
+  plugin_strip_prefix = static  # 访问url 的后缀名称，如 http://x.x.x.x:6001/static/
+  plugin_http_user = abc     # 访问文件代理服务的用户名
+  plugin_http_passwd = abc    # 访问文件代理服务的用户名
+  bandwidth_limit = 1MB     # 客户端代理限速 1m
+  
   热加载配置：
   frpc reload -c ./frpc.ini
-
-	访问代理文件服务，代理服务器有域名可以访问域名，没有域名访问公网IP：
-	http://www.metelcloud.com:6001/static/
-	http://43.231.196.25:6001/static/
+  
+  访问代理文件服务，代理服务器有域名可以访问域名，没有域名访问公网IP：
+  http://www.metelcloud.com:6001/static/
+  http://43.231.196.25:6001/static/
 ```
 
