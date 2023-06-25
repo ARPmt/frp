@@ -45,10 +45,8 @@ frps.ini
   dashboard_user = admin
   dashboard_pwd = admin
 
-  热加载配置：
-  frpc reload -c ./frpc.ini
-  查看代理状态
-  frpc status -c ./frpc.ini
+	# 代理 访问的端口白名单
+	allow_ports = 2000-3000,3001,3003,4000-50000
 
 ```
 
@@ -57,17 +55,29 @@ frps.ini
 ```
 frpc.ini
   [common]
+	# 连接frps 服务器的基础配置
   server_addr = www.metelcloud.com    # 要连接服务端的IP地址或域名
   server_port = 7000          # 要连接服务端的tcp 端口
   includes = /etc/confd/*.ini     # 配置分离，加载该目录下.ini 配置文件
-  
+
+	# 客户端热重启的配置
+	admin_addr = 127.0.0.1
+	admin_port = 7400
+
+	# 要代理的服务配置
   [ssh]        # 配置ssh 代理
   type = tcp      # 协议tcp协议
   local_ip = 127.0.0.1     # 本地IP地址
   local_port = 22         # 要代理的ssh 的端口
   remote_port = 6000     # 服务端代理访问的TCP 端口号，服务端一个端口号只能代理一个TCP/UDP服务，服务端防火墙要放开该端口号
 
+	热加载配置：
+  frpc reload -c ./frpc.ini
+  查看代理状态
+  frpc status -c ./frpc.ini
+
 ```
+
   - 2.2.2 配置tcp 代理
 ```
   配置 mstc 远程桌面代理，添加 mstc.ini 配置文件，服务器代理端口 13389,
@@ -111,3 +121,31 @@ test_web.ini
   frpc reload -c ./frpc.ini
 
 ```
+	
+  - 2.2.5 配置文件访问 代理
+```
+  配置 dns查询代理，添加 dns.ini 配置文件，服务器代理端口 6000,
+udp.ini
+  [udp]        # 配置udp 代理
+  type = udp     # 协议tcp协议
+  local_ip = 127.0.0.1     # 本地IP地址
+  local_port = 53        # 要代理的ssh 的端口
+  remote_port = 6000     # 服务端代理访问的TCP 端口号，服务端一个端口号只能代理一个TCP/UDP服务，服务端防火墙要放开该端口号
+
+	[test_static_file]  # 配置文件代理名称
+	type = tcp     # 协议tcp协议
+	remote_port = 6001    # 服务端代理访问的TCP 端口号
+	plugin = static_file    # 文件代理启用的插件，
+	plugin_local_path = /tmp/file   # 要对外暴露的文件目录
+	plugin_strip_prefix = static  # 访问url 的后缀名称，如 http://x.x.x.x:6001/static/
+	plugin_http_user = abc     # 访问文件代理服务的用户名
+	plugin_http_passwd = abc    # 访问文件代理服务的用户名
+
+  热加载配置：
+  frpc reload -c ./frpc.ini
+
+	访问代理文件服务，代理服务器有域名可以访问域名，没有域名访问公网IP：
+	http://www.metelcloud.com:6001/static/
+	http://43.231.196.25:6001/static/
+```
+
