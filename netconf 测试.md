@@ -137,6 +137,35 @@ netconf 配置
       </ifm>
     </config>
 
+ <config xmlns:xc="urn:ietf:params:xml:ns:netconf:base:1.0">
+ <ethernet xmlns="http://www.huawei.com/netconf/vrp/huawei-ethernet">
+        <ethernetIfs>
+          <ethernetIf xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0" nc:operation="replace">
+            <ifName>GE1/0/6</ifName>
+            <l2Enable>disable</l2Enable>
+          </ethernetIf>
+        </ethernetIfs>
+      </ethernet>
+      <ifm xmlns="http://www.huawei.com/netconf/vrp/huawei-ifm">
+        <interfaces>
+          <interface xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0" nc:operation="replace">
+            <ifName>GE1/0/6</ifName>
+            <ifDescr>666666</ifDescr>
+            <ifAdminStatus>up</ifAdminStatus>
+            <ipv4Config>
+              <am4CfgAddrs>
+                <am4CfgAddr xc:operation="create">
+                  <ifIpAddr>192.168.6.1</ifIpAddr>
+                  <subnetMask>255.255.255.0</subnetMask>
+                  <addrType>main</addrType>
+                </am4CfgAddr>
+              </am4CfgAddrs>
+            </ipv4Config>
+          </interface>
+        </interfaces>
+      </ifm>
+    </config>
+
 修改ip 地址  要先删除，再添加
 <am4CfgAddrs>
   <am4CfgAddr xc:operation="delete">
