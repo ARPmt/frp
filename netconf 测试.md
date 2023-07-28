@@ -18,7 +18,7 @@ snetconf server enable
 
 
 netconf 配置 
-端口vlan 
+- 端口vlan 
 ```
 <config xmlns:xc="urn:ietf:params:xml:ns:netconf:base:1.0">
       <ethernet xmlns="http://www.huawei.com/netconf/vrp/huawei-ethernet">
@@ -41,7 +41,7 @@ netconf 配置
       </ethernet>
     </config>
 ```
-配置trunk
+- 配置trunk
 ```
 <config xmlns:xc="urn:ietf:params:xml:ns:netconf:base:1.0">
       <ethernet xmlns="http://www.huawei.com/netconf/vrp/huawei-ethernet">
