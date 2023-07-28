@@ -108,11 +108,11 @@ netconf 配置
 
 配置IP
 ```
- <config xmlns:xc="urn:ietf:params:xml:ns:netconf:base:1.0">
+<config xmlns:xc="urn:ietf:params:xml:ns:netconf:base:1.0">
  <ethernet xmlns="http://www.huawei.com/netconf/vrp/huawei-ethernet">
         <ethernetIfs>
           <ethernetIf xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0" nc:operation="replace">
-            <ifName>GE1/0/4</ifName>
+            <ifName>GE1/0/5</ifName>
             <l2Enable>disable</l2Enable>
           </ethernetIf>
         </ethernetIfs>
@@ -120,19 +120,13 @@ netconf 配置
       <ifm xmlns="http://www.huawei.com/netconf/vrp/huawei-ifm">
         <interfaces>
           <interface>
-            <ifName>GE1/0/4</ifName>
+            <ifName>GE1/0/5</ifName>
+            <ifDescr>55555555555555555555</ifDescr>
             <ifAdminStatus>up</ifAdminStatus>
-          </interface>
-        </interfaces>
-      </ifm>
-      <ifm xmlns="http://www.huawei.com/netconf/vrp/huawei-ifm">
-        <interfaces>
-          <interface>
-            <ifName>GE1/0/4</ifName>
             <ipv4Config>
               <am4CfgAddrs>
                 <am4CfgAddr xc:operation="create">
-                  <ifIpAddr>192.168.3.1</ifIpAddr>
+                  <ifIpAddr>192.168.5.1</ifIpAddr>
                   <subnetMask>255.255.255.0</subnetMask>
                   <addrType>main</addrType>
                 </am4CfgAddr>
