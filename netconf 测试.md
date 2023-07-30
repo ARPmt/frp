@@ -180,3 +180,29 @@ netconf 配置
   </am4CfgAddr>
 </am4CfgAddrs>
 ```
+"config":{
+        '@xmlns:xc':'urn:ietf:params:xml:ns:netconf:base:1.0',
+        "ifm":{
+            "@xmlns":"http://www.huawei.com/netconf/vrp/huawei-ifm",
+            "interfaces":{
+                "interface":{
+                    "@xmlns:nc":"urn:ietf:params:xml:ns:netconf:base:1.0",
+                    "@nc:operation":"replace",
+                    "ifAdminStatus":"up",
+                    "ifDescr":"88888",
+                    "ifName":"GE1/0/8",
+                    "ipv4Config":{
+                        "am4CfgAddrs":{
+                            "am4CfgAddr":{
+                                "@xc:operation":"create",
+                                "addrType":"main",
+                                "ifIpAddr":"192.168.8.1",
+                                "subnetMask":"255.255.255.0"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
