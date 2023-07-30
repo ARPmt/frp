@@ -9,7 +9,8 @@
 
 客户端序列号规则：
 
-设备类型 S/C (s为 frps, c frpc) + 系统类型w/i/a/m/c/u (w 为windows, i  ios, a  android, c  centos, u  ubuntu ..) + 设备ID 16 位
+> # 设备类型 S/C (s为 frps, c frpc) + 系统类型w/i/a/m/c/u (w 为windows, i  ios, a  android, c  centos, u  ubuntu ..) + 设备ID 16 位
+```
 如  frps 客户端   SC9f14b05c10187031
     frpc 客户端   CC9f14b05c10187031
 
@@ -24,3 +25,4 @@
   A:  表示 android 客户端
   C： 表示 centos 客户端
   U:  表示 Ubuntu 客户端
+```
